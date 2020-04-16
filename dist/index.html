@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            {{ message }}
+        </div>
+        <div id="app-2">
+          <span v-bind:title="message">
+            hover mouse!
+          </span>
+        </div>
+        <div id="app-3">
+          <p v-if="seen">can I see?</p>
+        </div>
+        <div id="app-4">
+          <ul>
+            <li v-for="todo in todos">
+              {{ todo.text }}
+            </li>
+          </ul>
+        </div>
+        <div id="app-5">
+          <p>{{ message }}</p>
+          <button v-on:click="reverseMessage">reverse message</button>
+        </div>
+        <div id="app-6">
+          <p>{{message}}</p>
+          <input v-model="message">
+        </div>
+
+        <ol id="app-7">
+          <!-- todo-item component instance -->
+          <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+        </ol>
+
+        <script src="index.js"></script>
+    </body>
+</html>
