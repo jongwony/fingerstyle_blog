@@ -1,17 +1,31 @@
 {
   "name": "fingerstyle",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Fingerstyle Guitar Blog in jongwony.com",
   "author": "jongwony <lastone9182@gmail.com>",
-  "private": true,
+  "main": ".postcssrc.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "test": "npm run unit",
     "build": "node build/build.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jongwony/fingerstyle.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jongwony/fingerstyle/issues"
+  },
+  "homepage": "https://github.com/jongwony/fingerstyle#readme",
   "dependencies": {
-    "vue": "^2.5.2"
+    "axios": "^0.19.2",
+    "vue": "^2.6.11",
+    "vue-axios": "^2.1.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
