@@ -17,7 +17,8 @@
           @sliding-end="onSlideEnd"
         >
           <!-- v-bind in attributes -->
-          <b-carousel-slide v-for="image in images" :key="image['img-src']" :img-src="image['img-src']"></b-carousel-slide>
+          <b-carousel-slide v-for="image in images" :key="image['img-src']"
+                            :img-src="image['img-src']"></b-carousel-slide>
         </b-carousel>
 
         <p class="caption mt-4">
@@ -28,7 +29,8 @@
       <!-- youtube part-->
       <div id="youtube">
         <iframe width="100%" height="315" src="https://www.youtube.com/embed/Tx2cGzsPSlc" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
       </div>
 
     </div>
@@ -82,7 +84,9 @@
   .home {
     margin-top: 56px;
   }
+
   .caption {
     color: ivory;
+    text-shadow: 2px 2px 2px black;
   }
 </style>
