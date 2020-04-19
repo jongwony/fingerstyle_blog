@@ -8,6 +8,7 @@
           id="carousel-fade"
           v-model="slide"
           :interval="5000"
+          fade
           controls
           indicators
           background="#ababab"
@@ -16,12 +17,11 @@
           @sliding-end="onSlideEnd"
         >
           <!-- v-bind in attributes -->
-          <b-carousel-slide v-for="image in images" :key="image['img-src']" v-bind="image"></b-carousel-slide>
+          <b-carousel-slide v-for="image in images" :key="image['img-src']" :img-src="image['img-src']"></b-carousel-slide>
         </b-carousel>
 
         <p class="mt-4">
-          Slide #: {{ slide }}<br>
-          Sliding: {{ sliding }}
+          {{ images[slide].caption }}
         </p>
       </div>
 
@@ -60,7 +60,7 @@
         })
         .catch(function () {
           vm.images = [
-            {'img-src': "https://picsum.photos/1024/480/?image=52"},
+            {'img-src': "https://picsum.photos/1024/480/?image=52", caption: 'Hello World'},
             {'img-src': "https://picsum.photos/1024/480/?image=54"},
             {'img-src': "https://picsum.photos/1024/480/?image=58"},
             {'img-src': "https://picsum.photos/1024/480/?image=55"}
