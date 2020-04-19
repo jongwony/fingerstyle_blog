@@ -24,8 +24,10 @@
   "homepage": "https://github.com/jongwony/fingerstyle#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "bootstrap-vue": "^2.11.0",
     "vue": "^2.6.11",
-    "vue-axios": "^2.1.5"
+    "vue-axios": "^2.1.5",
+    "vue-router": "^3.1.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -1,26 +1,18 @@
 <template>
   <div id="app">
+    <NavigationBar/>
     <img src="./assets/logo.png" alt="">
-    <HelloWorld/>
-    <AxiosExample/>
-    <PrototypeContextExample/>
-    <TransitionExample/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import AxiosExample from "./components/AxiosExample";
-import PrototypeContextExample from "./components/PrototypeContextExample";
-import TransitionExample from "./components/TransitionExample";
+import NavigationBar from "./components/NavigationBar";
 
 export default {
   name: 'App',
   components: {
-    TransitionExample,
-    PrototypeContextExample,
-    AxiosExample,
-    HelloWorld,
+    NavigationBar,
   }
 }
 </script>
