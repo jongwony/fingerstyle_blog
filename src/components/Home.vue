@@ -1,7 +1,7 @@
 <template>
   <div class="home row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
       <div id="gallery">
         <!-- carousel part-->
         <b-carousel
@@ -20,7 +20,7 @@
           <b-carousel-slide v-for="image in images" :key="image['img-src']" :img-src="image['img-src']"></b-carousel-slide>
         </b-carousel>
 
-        <p class="mt-4">
+        <p class="caption mt-4">
           {{ images[slide].caption }}
         </p>
       </div>
@@ -32,7 +32,7 @@
       </div>
 
     </div>
-    <div class="col-sm-3"></div>
+    <div class="col-lg-2"></div>
   </div>
 </template>
 
@@ -81,6 +81,8 @@
 <style scoped>
   .home {
     margin-top: 56px;
-    background-color: burlywood;
+  }
+  .caption {
+    color: ivory;
   }
 </style>
