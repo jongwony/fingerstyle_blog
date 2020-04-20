@@ -1,40 +1,68 @@
 <template>
-  <div class="home row">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8">
-      <div id="gallery">
-        <!-- carousel part-->
-        <b-carousel
-          id="carousel-fade"
-          v-model="slide"
-          :interval="5000"
-          fade
-          controls
-          indicators
-          background="#ababab"
-          style="text-shadow: 1px 1px 2px #333;"
-          @sliding-start="onSlideStart"
-          @sliding-end="onSlideEnd"
+  <div class="home">
+    <!-- carousel part-->
+    <section id="gallery">
+      <div class="row">
+        <div class="col-lg p-0"></div>
+        <div class="col-lg-7 p-0">
+          <b-carousel
+            id="carousel-fade"
+            v-model="slide"
+            :interval="5000"
+            fade
+            controls
+            indicators
+            background="#ababab"
+            style="text-shadow: 1px 1px 2px #333;"
+            @sliding-start="onSlideStart"
+            @sliding-end="onSlideEnd"
+          >
+            <!-- v-bind in attributes -->
+            <b-carousel-slide v-for="image in images" :key="image['img-src']" :text="image.caption"
+                              :img-src="image['img-src']"></b-carousel-slide>
+          </b-carousel>
+        </div>
+        <div class="col-lg p-0"></div>
+      </div>
+    </section>
+
+    <!-- youtube part-->
+    <section id="youtube">
+      <b-card-group columns>
+        <b-card
+          no-body
+          style="max-width: 25rem;"
+          v-for="embed in embeds"
+          :key="embed.id"
         >
-          <!-- v-bind in attributes -->
-          <b-carousel-slide v-for="image in images" :key="image['img-src']"
-                            :img-src="image['img-src']"></b-carousel-slide>
-        </b-carousel>
+          <template v-slot:header>
+            <b-embed
+              type="iframe"
+              aspect="16by9"
+              :src="'https://www.youtube.com/embed/' + embed.id"
+              allowfullscreen
+            ></b-embed>
+          </template>
 
-        <p class="caption mt-4">
-          {{ images[slide].caption }}
-        </p>
-      </div>
+          <b-card-body>
+            <b-card-title>Card Title</b-card-title>
+            <b-card-sub-title class="mb-2">Card Sub Title</b-card-sub-title>
+            <b-card-text>
+              Some quick example text to build on the card title and make up the bulk of the card's
+              content.
+            </b-card-text>
+          </b-card-body>
 
-      <!-- youtube part-->
-      <div id="youtube">
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/Tx2cGzsPSlc" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-      </div>
+          <b-card-body>
+            <b-button variant="outline-danger">PDF</b-button>
+            <b-button variant="outline-primary">Guitar Pro</b-button>
+          </b-card-body>
 
-    </div>
-    <div class="col-lg-2"></div>
+          <b-card-footer>This is a footer</b-card-footer>
+
+        </b-card>
+      </b-card-group>
+    </section>
   </div>
 </template>
 
@@ -50,6 +78,11 @@
           text: String,
           'img-src': String,
         },
+        embeds: [
+          {id: '1fwRzD1INZw'},
+          {id: 'Tx2cGzsPSlc'},
+          {id: 'yW7K20UUx5c'}
+        ],
         images: []
       }
     },
@@ -85,8 +118,7 @@
     margin-top: 56px;
   }
 
-  .caption {
-    color: ivory;
-    text-shadow: 2px 2px 2px black;
+  #youtube {
+    margin-top: 2rem
   }
 </style>

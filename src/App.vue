@@ -25,10 +25,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
     background-color: #343a40;
     background-size: cover;
     background-repeat: repeat-y;
     min-height: 100vh;
+    overflow: auto;
   }
 </style>
