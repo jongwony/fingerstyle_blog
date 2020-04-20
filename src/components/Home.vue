@@ -28,7 +28,9 @@
 
       <!-- youtube part-->
       <div id="youtube">
-        <LazyYoutubeVideo class="col-2" url="https://www.youtube.com/watch?v=Tx2cGzsPSlc"/>
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/Tx2cGzsPSlc" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
       </div>
 
     </div>
