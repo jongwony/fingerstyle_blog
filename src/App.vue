@@ -11,7 +11,7 @@
   export default {
     name: 'App',
     data() {
-      return {bg_image: require('./assets/glowing_light_wave.png')}
+      return {bg_image: require('./assets/glowing_light_wave.webp')}
     },
     components: {
       NavigationBar,
