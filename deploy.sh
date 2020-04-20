@@ -3,6 +3,8 @@
 # abort on errors
 set -e
 
+git push origin master
+
 # build
 npm run build
 
