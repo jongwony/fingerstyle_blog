@@ -45,20 +45,19 @@
           </template>
 
           <b-card-body>
-            <b-card-title>Card Title</b-card-title>
-            <b-card-sub-title class="mb-2">Card Sub Title</b-card-sub-title>
+            <b-card-title>{{ embed.title }}</b-card-title>
+            <b-card-sub-title v-if="embed.subtitle" class="mb-2">{{ embed.subtitle }}</b-card-sub-title>
             <b-card-text>
-              Some quick example text to build on the card title and make up the bulk of the card's
-              content.
+              {{ embed.description }}
             </b-card-text>
           </b-card-body>
 
-          <b-card-body>
-            <b-button variant="outline-danger">PDF</b-button>
-            <b-button variant="outline-primary">Guitar Pro</b-button>
+          <b-card-body v-if="embed.downloads">
+            <b-button variant="outline-danger">{{ embed.downloads }}</b-button>
+            <b-button variant="outline-primary">{{ embed.downloads }}</b-button>
           </b-card-body>
 
-          <b-card-footer>This is a footer</b-card-footer>
+          <b-card-footer v-if="embed.footer">{{ embed.footer }}</b-card-footer>
 
         </b-card>
       </b-card-group>
@@ -78,29 +77,35 @@
           text: String,
           'img-src': String,
         },
-        embeds: [
-          {id: '1fwRzD1INZw'},
-          {id: 'Tx2cGzsPSlc'},
-          {id: 'yW7K20UUx5c'}
-        ],
+        embeds: [],
         images: []
       }
     },
     created() {
       let vm = this
       this.$http
-        .get('https://wr6wm9szy5.execute-api.ap-northeast-2.amazonaws.com/api/')
+        .get('https://wr6wm9szy5.execute-api.ap-northeast-2.amazonaws.com/api/instagram')
         .then(function (response) {
           vm.images = response.data
         })
         .catch(function () {
           vm.images = [
-            {'img-src': "https://picsum.photos/1024/480/?image=52", caption: 'Hello World'},
-            {'img-src': "https://picsum.photos/1024/480/?image=54"},
-            {'img-src': "https://picsum.photos/1024/480/?image=58"},
-            {'img-src': "https://picsum.photos/1024/480/?image=55"}
+            {'img-src': "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/93522189_229360631664835_7968747596775217704_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=107&_nc_ohc=FPa_WvDvtI0AX9mEGFv&oh=ae1960df92ea03f579209b5bcf7e3997&oe=5ECB1AEA", caption: "😕 최신 이미지를 못가져왔어요!"},
+            {'img-src': "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/80867696_133634928107905_1774379108143455026_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=101&_nc_ohc=VyTUkhVeg5YAX8uxrg4&oh=05c1ed363a3b13276e02a1e9abc45075&oe=5ECAC941", caption: "😕 최신 이미지를 못가져왔어요!"},
+            {'img-src': "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/76794627_160192132011970_2407652251358697861_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=110&_nc_ohc=ZDR6dD5FyRwAX-lZUdW&oh=1facc8f250aa4e577c0eb8d03136f7d3&oe=5EA4E0E1", caption: "😕 최신 이미지를 못가져왔어요!"}
           ]
         })
+      this.$http
+        .get('https://wr6wm9szy5.execute-api.ap-northeast-2.amazonaws.com/api/youtube')
+        .then(function (response) {
+          vm.embeds = response.data
+        }).catch(function () {
+        vm.embeds = [
+          {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!'},
+          {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!'},
+          {id: 'yW7K20UUx5c', title: '😕', description: '최신 영상을 불러오지 못했어요!'}
+        ]
+      })
     },
     methods: {
       onSlideStart(slide) {
