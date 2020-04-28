@@ -29,7 +29,7 @@
     <section class="about-section">
       <h1>#guitar</h1>
       <p>연습한 곡을 기록하지 않으니 잊어버리더라고요.</p>
-      <p>오래 이어온 취미를 더 오래 간직하기 위해 <br> 웹페이지를 제작하였습니다.</p>
+      <p>오래 이어 온 취미를 더 오래 간직하기 위해 <br> 웹페이지를 제작하였습니다.</p>
     </section>
 
     <!-- youtube part-->
@@ -104,13 +104,13 @@
       this.$http
         .get('https://wr6wm9szy5.execute-api.ap-northeast-2.amazonaws.com/api/youtube')
         .then(function (response) {
-          vm.embeds = response.data
+          vm.embeds = response.data.filter(k => k.privacy !== 'private')
         }).catch(function () {
         vm.embeds = [
-          {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!'},
-          {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!'},
+          {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "public"},
+          {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "private"},
           {id: 'yW7K20UUx5c', title: '😕', description: '최신 영상을 불러오지 못했어요!'}
-        ]
+        ].filter(k => k.privacy !== 'private')
       })
     },
     methods: {
