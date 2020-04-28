@@ -18,9 +18,6 @@
           <b-nav-item>
             <router-link to="/contact">Contact</router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="/about">About</router-link>
-          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

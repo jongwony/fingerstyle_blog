@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <!-- carousel part-->
-    <section id="gallery">
+    <section>
       <div class="row">
         <div class="col-lg p-0"></div>
         <div class="col-lg-7 p-0">
           <b-carousel
-            id="carousel-fade"
+            id="gallery"
             v-model="slide"
             :interval="5000"
             fade
@@ -26,9 +26,15 @@
       </div>
     </section>
 
+    <section class="about-section">
+      <h1>#guitar</h1>
+      <p>연습한 곡을 기록하지 않으니 잊어버리더라고요.</p>
+      <p>오래 이어온 취미를 더 오래 간직하기 위해 <br> 웹페이지를 제작하였습니다.</p>
+    </section>
+
     <!-- youtube part-->
-    <section id="youtube">
-      <b-card-group columns>
+    <section>
+      <b-card-group id="youtube" columns>
         <b-card
           no-body
           style="max-width: 25rem;"
@@ -123,7 +129,17 @@
     margin-top: 56px;
   }
 
-  #youtube {
-    margin-top: 2rem
+  .about-section {
+    padding: 50px;
+    margin: 50px 0;
+    background-color: #474e5d;
+    opacity: 0.8;
+    color: white;
   }
+  .about-section h1 {
+    font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, Sans-Serif, serif;
+    padding: 7px 15px;
+    font-weight: bold;
+  }
+
 </style>
