@@ -15,9 +15,6 @@
           <b-nav-item v-if="$route.name === 'Home'" href="#youtube">
             YouTube
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="/contact">Contact</router-link>
-          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
