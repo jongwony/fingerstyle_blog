@@ -18,8 +18,8 @@
             @sliding-end="onSlideEnd"
           >
             <!-- v-bind in attributes -->
-            <b-carousel-slide v-for="image in images" :key="image['img-src']" :text="image.caption"
-                              :img-src="image['img-src']"></b-carousel-slide>
+            <b-carousel-slide v-for="image in images" :key="image['media_url']" :text="image.caption"
+                              :img-src="image['media_url']"></b-carousel-slide>
           </b-carousel>
         </div>
         <div class="col-lg p-0"></div>
@@ -96,9 +96,8 @@
         })
         .catch(function () {
           vm.images = [
-            {'img-src': "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/93522189_229360631664835_7968747596775217704_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=107&_nc_ohc=FPa_WvDvtI0AX9mEGFv&oh=ae1960df92ea03f579209b5bcf7e3997&oe=5ECB1AEA", caption: "😕 최신 이미지를 못가져왔어요!"},
-            {'img-src': "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/80867696_133634928107905_1774379108143455026_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=101&_nc_ohc=VyTUkhVeg5YAX8uxrg4&oh=05c1ed363a3b13276e02a1e9abc45075&oe=5ECAC941", caption: "😕 최신 이미지를 못가져왔어요!"},
-            {'img-src': "https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/76794627_160192132011970_2407652251358697861_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=110&_nc_ohc=ZDR6dD5FyRwAX-lZUdW&oh=1facc8f250aa4e577c0eb8d03136f7d3&oe=5EA4E0E1", caption: "😕 최신 이미지를 못가져왔어요!"}
+            {'media_url': "https://www.instagram.com/p/CDv8qP3JuJp/", caption: "😕 최신 이미지를 못가져왔어요1"},
+            {'media_url': "https://scontent-gmp1-1.cdninstagram.com/v/t51.29350-15/189822938_491795035488842_8708084478679539608_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=8ae9d6&_nc_ohc=WQO1M9yjtMkAX8952cg&_nc_ht=scontent-gmp1-1.cdninstagram.com&oh=bac117532478834502cf4f70936f2323&oe=60B52751", caption: "😕 최신 이미지를 못가져왔어요2"},
           ]
         })
       this.$http
