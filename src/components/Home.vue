@@ -45,26 +45,15 @@
             <b-embed
               type="iframe"
               aspect="16by9"
-              :src="'https://www.youtube.com/embed/' + embed.id"
+              :src="'https://www.youtube.com/embed/' + embed.resourceId.videoId"
               allowfullscreen
             ></b-embed>
           </template>
 
           <b-card-body>
             <b-card-title>{{ embed.title }}</b-card-title>
-            <b-card-sub-title v-if="embed.subtitle" class="mb-2">{{ embed.subtitle }}</b-card-sub-title>
-            <b-card-text>
-              {{ embed.description }}
-            </b-card-text>
+            <b-card-sub-title v-if="embed.description" class="mb-2">{{ embed.description }}</b-card-sub-title>
           </b-card-body>
-
-          <b-card-body v-if="embed.downloads">
-            <b-button variant="outline-danger">{{ embed.downloads }}</b-button>
-            <b-button variant="outline-primary">{{ embed.downloads }}</b-button>
-          </b-card-body>
-
-          <b-card-footer v-if="embed.footer">{{ embed.footer }}</b-card-footer>
-
         </b-card>
       </b-card-group>
     </section>
@@ -89,28 +78,48 @@
     },
     created() {
       let vm = this
-      this.$http
-        .get('https://wr6wm9szy5.execute-api.ap-northeast-2.amazonaws.com/api/instagram')
-        .then(function (response) {
-          vm.images = response.data
+      // chalice local - in api server
+      if (process.env.NODE_ENV === 'development') {
+        this.$http
+          .get('http://localhost:8000/instagram')
+          .then (function (response) {
+            vm.images = response.data.filter(
+              x => x.caption && x.media_type !== 'VIDEO' && x.caption.includes('#guitar')
+            )
+          })
+        this.$http
+          .get('http://localhost:8000/youtube')
+          .then(function (response) {
+            let playlist = response.data.filter(k => k.status.privacyStatus !== 'private');
+            vm.embeds = playlist.map(x => x.snippet);
+          }).catch(function () {
+          vm.embeds = [
+            {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "public"},
+            {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "private"},
+            {id: 'yW7K20UUx5c', title: '😕', description: '최신 영상을 불러오지 못했어요!'}
+          ].filter(k => k.privacy !== 'private')
         })
-        .catch(function () {
-          vm.images = [
-            {'media_url': "https://www.instagram.com/p/CDv8qP3JuJp/", caption: "😕 최신 이미지를 못가져왔어요1"},
-            {'media_url': "https://scontent-gmp1-1.cdninstagram.com/v/t51.29350-15/189822938_491795035488842_8708084478679539608_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=8ae9d6&_nc_ohc=WQO1M9yjtMkAX8952cg&_nc_ht=scontent-gmp1-1.cdninstagram.com&oh=bac117532478834502cf4f70936f2323&oe=60B52751", caption: "😕 최신 이미지를 못가져왔어요2"},
-          ]
+      } else {
+        this.$http
+          .get('https://9e240d7v0k.execute-api.ap-northeast-2.amazonaws.com/api/instagram')
+          .then(function (response) {
+            vm.images = response.data.filter(
+              x => x.caption && x.media_type !== 'VIDEO' && x.caption.includes('#guitar')
+            )
+          })
+        this.$http
+          .get('https://9e240d7v0k.execute-api.ap-northeast-2.amazonaws.com/api/youtube')
+          .then(function (response) {
+            let playlist = response.data.filter(k => k.status.privacyStatus !== 'private');
+            vm.embeds = playlist.map(x => x.snippet);
+          }).catch(function () {
+          vm.embeds = [
+            {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "public"},
+            {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "private"},
+            {id: 'yW7K20UUx5c', title: '😕', description: '최신 영상을 불러오지 못했어요!'}
+          ].filter(k => k.privacy !== 'private')
         })
-      this.$http
-        .get('https://wr6wm9szy5.execute-api.ap-northeast-2.amazonaws.com/api/youtube')
-        .then(function (response) {
-          vm.embeds = response.data.filter(k => k.privacy !== 'private')
-        }).catch(function () {
-        vm.embeds = [
-          {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "public"},
-          {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "private"},
-          {id: 'yW7K20UUx5c', title: '😕', description: '최신 영상을 불러오지 못했어요!'}
-        ].filter(k => k.privacy !== 'private')
-      })
+      }
     },
     methods: {
       onSlideStart(slide) {
