@@ -27,9 +27,13 @@
     </section>
 
     <section class="about-section">
-      <h1>#guitar</h1>
-      <p>연습한 곡을 기록하지 않으니 잊어버리더라고요.</p>
-      <p>오래 이어 온 취미를 더 오래 간직하기 위해 <br> 웹페이지를 제작하였습니다.</p>
+      <h1>🎸 Guitar</h1>
+      <p>
+        연습한 곡을 기록하지 않으니 잊어버리더라고요
+        <br>
+        근데 기록해도 잊어버리는건 마찬가지입니다.
+      </p>
+      <hr>
     </section>
 
     <!-- youtube part-->
@@ -37,9 +41,9 @@
       <b-card-group id="youtube" columns>
         <b-card
           no-body
-          style="max-width: 25rem;"
           v-for="embed in embeds"
           :key="embed.id"
+          class="d-inline-flex"
         >
           <template v-slot:header>
             <b-embed
@@ -79,47 +83,27 @@
     created() {
       let vm = this
       // chalice local - in api server
-      if (process.env.NODE_ENV === 'development') {
-        this.$http
-          .get('http://localhost:8000/instagram')
-          .then (function (response) {
-            vm.images = response.data.filter(
-              x => x.caption && x.media_type !== 'VIDEO' && x.caption.includes('#guitar')
-            )
-          })
-        this.$http
-          .get('http://localhost:8000/youtube')
-          .then(function (response) {
-            let playlist = response.data.filter(k => k.status.privacyStatus !== 'private');
-            vm.embeds = playlist.map(x => x.snippet);
-          }).catch(function () {
-          vm.embeds = [
-            {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "public"},
-            {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "private"},
-            {id: 'yW7K20UUx5c', title: '😕', description: '최신 영상을 불러오지 못했어요!'}
-          ].filter(k => k.privacy !== 'private')
+      this.$http
+        .get('https://9e240d7v0k.execute-api.ap-northeast-2.amazonaws.com/api/instagram')
+        .then(function (response) {
+          vm.images = response.data.filter(
+            x => x.caption && x.media_type !== 'VIDEO' && x.caption.includes('#guitar')
+          )
         })
-      } else {
-        this.$http
-          .get('https://9e240d7v0k.execute-api.ap-northeast-2.amazonaws.com/api/instagram')
-          .then(function (response) {
-            vm.images = response.data.filter(
-              x => x.caption && x.media_type !== 'VIDEO' && x.caption.includes('#guitar')
-            )
-          })
-        this.$http
-          .get('https://9e240d7v0k.execute-api.ap-northeast-2.amazonaws.com/api/youtube')
-          .then(function (response) {
-            let playlist = response.data.filter(k => k.status.privacyStatus !== 'private');
-            vm.embeds = playlist.map(x => x.snippet);
-          }).catch(function () {
-          vm.embeds = [
-            {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "public"},
-            {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "private"},
-            {id: 'yW7K20UUx5c', title: '😕', description: '최신 영상을 불러오지 못했어요!'}
-          ].filter(k => k.privacy !== 'private')
-        })
-      }
+      this.$http
+        .get('https://9e240d7v0k.execute-api.ap-northeast-2.amazonaws.com/api/youtube')
+        .then(function (response) {
+          let playlist = response.data.filter(
+            k => k.status.privacyStatus !== 'private' && k.snippet.description.includes('#guitar')
+          );
+          vm.embeds = playlist.map(x => x.snippet);
+        }).catch(function () {
+        vm.embeds = [
+          {id: '1fwRzD1INZw', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "public"},
+          {id: 'Tx2cGzsPSlc', title: '😕', description: '최신 영상을 불러오지 못했어요!', privacy: "private"},
+          {id: 'yW7K20UUx5c', title: '😕', description: '최신 영상을 불러오지 못했어요!'}
+        ].filter(k => k.privacy !== 'private')
+      })
     },
     methods: {
       onSlideStart(slide) {
@@ -136,18 +120,22 @@
   .home {
     margin-top: 56px;
   }
-
-  .about-section {
-    padding: 50px;
-    margin: 50px 0;
-    background-color: #474e5d;
-    opacity: 0.8;
-    color: white;
+  .card-header {
+    padding: 0;
   }
-  .about-section h1 {
-    font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, Sans-Serif, serif;
-    padding: 7px 15px;
-    font-weight: bold;
+  hr {
+    border: 1px solid var(--accent-color);
+  }
+  .card {
+    max-width: 25rem;
+    text-align: center;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    color: var(--text-primary-color);
+    background-color: var(--background-color-secondary);
+  }
+  .about-section {
+    margin-top: 120px;
   }
 
 </style>
